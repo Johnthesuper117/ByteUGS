@@ -102,7 +102,6 @@ const GAMES = [
   { name: 'Drunken Duel',        folder: 'drunken duel',             tag: 'multiplayer',emoji: '🥊' },
   { name: 'Slender Multiplayer', folder: 'slender multiplayer',       tag: 'multiplayer',emoji: '👻' },
   // Misc / Fun
-  { name: 'Eggy Car',            folder: 'eggy car',                 tag: 'misc',       emoji: '🥚' },
   { name: 'Stickman Parkour',    folder: 'stickman parkour island',   tag: 'misc',       emoji: '🏃' },
   { name: 'Ragdoll Drop',        folder: 'ragdoll-drop',             tag: 'misc',       emoji: '🪆' },
   { name: 'Ragdoll Hit',         folder: 'ragdoll-hit',              tag: 'misc',       emoji: '🪆' },
@@ -266,7 +265,7 @@ function escHtml(str) {
 function runBoot() {
   const lines = [
     { text: '[  OK  ] Started ByteUGS kernel modules.', cls: 'boot-ok' },
-    { text: '[  OK  ] Mounted game filesystem (256 games).', cls: 'boot-ok' },
+    { text: `[  OK  ] Mounted game filesystem (${GAMES_DEDUPED.length} games).`, cls: 'boot-ok' },
     { text: '[  OK  ] Loaded proxy subsystem (Ultraviolet).', cls: 'boot-ok' },
     { text: '[ WARN ] Ad-blocker recommended for best experience.', cls: 'boot-info' },
     { text: '[  OK  ] Terminal theme initialized.', cls: 'boot-ok' },
@@ -324,7 +323,9 @@ function init() {
   const ham = $('#hamburger');
   if (ham) {
     ham.addEventListener('click', () => {
-      $('.nav-links').classList.toggle('open');
+      const nav = $('.nav-links');
+      nav.classList.toggle('open');
+      ham.setAttribute('aria-expanded', nav.classList.contains('open') ? 'true' : 'false');
     });
   }
 
