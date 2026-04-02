@@ -156,8 +156,10 @@ function navigate(pageId) {
   // close mobile nav
   $('.nav-links').classList.remove('open');
 
-  // Update URL hash
-  history.pushState(null, '', `#${pageId}`);
+  // Update URL hash without duplicating history entries
+  if (window.location.hash !== `#${pageId}`) {
+    history.pushState(null, '', `#${pageId}`);
+  }
 }
 
 /* ── Build Game Grid ────────────────────────────────────── */
@@ -196,7 +198,12 @@ function buildGameGrid() {
       </div>`;
 
     card.addEventListener('click', () => openGame(game));
-    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openGame(game); });
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openGame(game);
+      }
+    });
 
     grid.appendChild(card);
   });
@@ -228,7 +235,7 @@ function openGame(game) {
   };
 
   // Build CDN URL
-  const encodedFolder = game.folder.replace(/ /g, '%20');
+  const encodedFolder = encodeURIComponent(game.folder);
   frame.src = `${CDN}${encodedFolder}/index.html`;
 }
 
@@ -330,9 +337,17 @@ function init() {
   }
 
   /* Hash routing */
-  const hash = window.location.hash.replace('#', '');
   const validPages = ['home', 'games', 'apps', 'tools', 'proxy'];
-  navigate(validPages.includes(hash) ? hash : 'home');
+
+  function navigateFromHash() {
+    const hash = window.location.hash.replace('#', '');
+    navigate(validPages.includes(hash) ? hash : 'home');
+  }
+
+  window.addEventListener('popstate', navigateFromHash);
+  window.addEventListener('hashchange', navigateFromHash);
+
+  navigateFromHash();
 
   /* Boot screen */
   runBoot();

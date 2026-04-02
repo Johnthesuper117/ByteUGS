@@ -32,7 +32,7 @@
   </header>
 
   <!-- ── Game Modal ──────────────────────────────────────── -->
-  <div class="modal-overlay hidden" id="game-modal" role="dialog" aria-modal="true" aria-label="Game player">
+  <div class="modal-overlay hidden" id="game-modal" role="dialog" aria-modal="true" aria-labelledby="modal-game-title">
     <div class="modal-bar">
       <span class="modal-title" id="modal-game-title">&gt; Loading…</span>
       <div class="modal-controls">
@@ -48,7 +48,7 @@
       <iframe
         id="game-frame"
         title="Game"
-        sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups"
+        sandbox="allow-scripts allow-forms allow-pointer-lock allow-popups"
         allow="fullscreen; pointer-lock"
         loading="lazy"
       ></iframe>
@@ -91,7 +91,7 @@
           <span class="stat-label">Games</span>
         </div>
         <div class="stat">
-          <span class="stat-value">8</span>
+          <span class="stat-value">9</span>
           <span class="stat-label">Categories</span>
         </div>
         <div class="stat">
@@ -141,7 +141,7 @@
       <button class="filter-btn" data-tag="misc">Misc</button>
     </div>
 
-    <div class="game-grid" id="game-grid" role="list" aria-label="Games"></div>
+    <div class="game-grid" id="game-grid" aria-label="Games"></div>
     <div class="no-results" id="no-results" aria-live="polite">
       &gt; No games found for that query.
     </div>
