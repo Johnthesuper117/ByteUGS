@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ByteUGS – The ultimate unblocked games site with a classic terminal theme. Play hundreds of games, use tools, and browse the web – all in one place." />
+  <title>ByteUGS | Unblocked Games</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="logo">
+      <span class="prompt">root@byte:~$</span>&nbsp;ByteUGS<span class="cursor"></span>
+    </div>
+
+    <nav aria-label="Primary navigation">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home"  data-page="home"  class="active">[ HOME  ]</a></li>
+        <li><a href="#games" data-page="games">[ GAMES ]</a></li>
+        <li><a href="#apps"  data-page="apps" >[ APPS  ]</a></li>
+        <li><a href="#tools" data-page="tools">[ TOOLS ]</a></li>
+        <li><a href="#proxy" data-page="proxy">[ PROXY ]</a></li>
+      </ul>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ── Game Modal ──────────────────────────────────────── -->
+  <div class="modal-overlay hidden" id="game-modal" role="dialog" aria-modal="true" aria-labelledby="modal-game-title">
+    <div class="modal-bar">
+      <span class="modal-title" id="modal-game-title">&gt; Loading…</span>
+      <div class="modal-controls">
+        <button class="modal-btn" id="modal-fullscreen" aria-label="Fullscreen">⛶ Fullscreen</button>
+        <button class="modal-btn close-btn" id="modal-close" aria-label="Close game">✕ Close</button>
+      </div>
+    </div>
+    <div class="modal-iframe-wrap">
+      <div class="modal-loading" id="modal-loading">
+        <div class="spinner"></div>
+        <span>LOADING GAME…</span>
+      </div>
+      <iframe
+        id="game-frame"
+        title="Game"
+        sandbox="allow-scripts allow-forms allow-pointer-lock allow-popups"
+        allow="fullscreen; pointer-lock"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PAGE: HOME
+       ══════════════════════════════════════════════════════ -->
+  <main>
+  <section class="page active" id="page-home" aria-label="Home">
+
+    <div class="boot-screen">
+      <div id="boot-lines"></div>
+    </div>
+
+    <div class="hero">
+      <pre class="hero-ascii" aria-label="ByteUGS ASCII art logo">
+  ██████╗ ██╗   ██╗████████╗███████╗██╗   ██╗ ██████╗ ███████╗
+  ██╔══██╗╚██╗ ██╔╝╚══██╔══╝██╔════╝██║   ██║██╔════╝ ██╔════╝
+  ██████╔╝ ╚████╔╝    ██║   █████╗  ██║   ██║██║  ███╗███████╗
+  ██╔══██╗  ╚██╔╝     ██║   ██╔══╝  ██║   ██║██║   ██║╚════██║
+  ██████╔╝   ██║      ██║   ███████╗╚██████╔╝╚██████╔╝███████║
+  ╚═════╝    ╚═╝      ╚═╝   ╚══════╝ ╚═════╝  ╚═════╝ ╚══════╝</pre>
+
+      <p class="hero-tagline">
+        The <span>Unblocked Games Site</span> — terminal edition.
+      </p>
+
+      <nav class="quick-nav" aria-label="Quick navigation">
+        <button class="btn btn-primary" data-nav="games">▶  Play Games</button>
+        <button class="btn" data-nav="apps">⬡  Apps</button>
+        <button class="btn" data-nav="tools">⚙  Tools</button>
+        <button class="btn" data-nav="proxy">⚡  Proxy</button>
+      </nav>
+
+      <div class="stats-bar" aria-label="Site statistics">
+        <div class="stat">
+          <span class="stat-value" id="game-count">100+</span>
+          <span class="stat-label">Games</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">9</span>
+          <span class="stat-label">Categories</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">∞</span>
+          <span class="stat-label">Fun</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">0</span>
+          <span class="stat-label">Blocks</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       PAGE: GAMES
+       ══════════════════════════════════════════════════════ -->
+  <section class="page" id="page-games" aria-label="Games library">
+
+    <div class="section-header">
+      <span class="prompt">&gt;</span>
+      <h2>Game Library</h2>
+    </div>
+
+    <div class="search-bar" role="search">
+      <input
+        type="search"
+        id="game-search"
+        class="search-input"
+        placeholder="Search games…"
+        aria-label="Search games"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="search-bar" role="group" aria-label="Filter by category">
+      <button class="filter-btn active" data-tag="all">All</button>
+      <button class="filter-btn" data-tag="shooter">Shooter</button>
+      <button class="filter-btn" data-tag="racing">Racing</button>
+      <button class="filter-btn" data-tag="sports">Sports</button>
+      <button class="filter-btn" data-tag="idle">Idle</button>
+      <button class="filter-btn" data-tag="platformer">Platformer</button>
+      <button class="filter-btn" data-tag="survival">Survival</button>
+      <button class="filter-btn" data-tag="puzzle">Puzzle</button>
+      <button class="filter-btn" data-tag="multiplayer">Multiplayer</button>
+      <button class="filter-btn" data-tag="misc">Misc</button>
+    </div>
+
+    <div class="game-grid" id="game-grid" aria-label="Games"></div>
+    <div class="no-results" id="no-results" aria-live="polite">
+      &gt; No games found for that query.
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       PAGE: APPS
+       ══════════════════════════════════════════════════════ -->
+  <section class="page" id="page-apps" aria-label="Apps">
+
+    <div class="section-header">
+      <span class="prompt">&gt;</span>
+      <h2>Apps</h2>
+    </div>
+
+    <p style="color:var(--green-dim); margin-bottom: 28px; font-size:0.85rem;">
+      // Apps are being packaged. Check back soon.
+    </p>
+
+    <div class="placeholder-grid">
+      <div class="placeholder-card">
+        <div class="placeholder-icon">📝</div>
+        <div class="placeholder-name">Notepad</div>
+        <div class="placeholder-desc">A lightweight terminal-style text editor for quick notes and code snippets.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">🧮</div>
+        <div class="placeholder-name">Calculator</div>
+        <div class="placeholder-desc">Full-featured scientific calculator with terminal styling.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">🎨</div>
+        <div class="placeholder-name">Pixel Painter</div>
+        <div class="placeholder-desc">Draw pixel art directly in the browser. Export as PNG.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">📊</div>
+        <div class="placeholder-name">Spreadsheet</div>
+        <div class="placeholder-desc">Minimal spreadsheet app for quick data manipulation.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">🎵</div>
+        <div class="placeholder-name">Music Player</div>
+        <div class="placeholder-desc">Play and manage your music library in the browser.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">📚</div>
+        <div class="placeholder-name">eBook Reader</div>
+        <div class="placeholder-desc">Read EPUB and PDF files without leaving ByteUGS.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">🗺️</div>
+        <div class="placeholder-name">Maps</div>
+        <div class="placeholder-desc">Browse satellite and street maps without tracking.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">🖥️</div>
+        <div class="placeholder-name">Terminal Emulator</div>
+        <div class="placeholder-desc">A full in-browser terminal experience powered by xterm.js.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       PAGE: TOOLS
+       ══════════════════════════════════════════════════════ -->
+  <section class="page" id="page-tools" aria-label="Tools">
+
+    <div class="section-header">
+      <span class="prompt">&gt;</span>
+      <h2>Tools</h2>
+    </div>
+
+    <p style="color:var(--green-dim); margin-bottom: 28px; font-size:0.85rem;">
+      // Utility toolbox — loading modules…
+    </p>
+
+    <div class="placeholder-grid">
+      <div class="placeholder-card">
+        <div class="placeholder-icon">🔑</div>
+        <div class="placeholder-name">Password Generator</div>
+        <div class="placeholder-desc">Generate strong, random passwords with custom rules. Nothing is sent to a server.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">🔐</div>
+        <div class="placeholder-name">Hash Tool</div>
+        <div class="placeholder-desc">Compute MD5, SHA-1, SHA-256, and SHA-512 hashes client-side.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">🌐</div>
+        <div class="placeholder-name">IP Lookup</div>
+        <div class="placeholder-desc">Find geolocation, ISP, and other details for any IP address.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">⏱️</div>
+        <div class="placeholder-name">Stopwatch / Timer</div>
+        <div class="placeholder-desc">Precision stopwatch and countdown timer with lap support.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">🔗</div>
+        <div class="placeholder-name">URL Encoder / Decoder</div>
+        <div class="placeholder-desc">Encode or decode URLs and query strings instantly.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">📋</div>
+        <div class="placeholder-name">JSON Formatter</div>
+        <div class="placeholder-desc">Prettify and validate JSON data with syntax highlighting.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">🎨</div>
+        <div class="placeholder-name">Color Picker</div>
+        <div class="placeholder-desc">Pick colors, convert between HEX, RGB, and HSL.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">📐</div>
+        <div class="placeholder-name">Unit Converter</div>
+        <div class="placeholder-desc">Convert length, weight, temperature, speed, and more.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">🔤</div>
+        <div class="placeholder-name">Text Case Converter</div>
+        <div class="placeholder-desc">Switch between UPPERCASE, lowercase, Title Case, and camelCase.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">📦</div>
+        <div class="placeholder-name">Base64 Encoder</div>
+        <div class="placeholder-desc">Encode and decode Base64 strings and files instantly.</div>
+        <span class="placeholder-badge">Coming Soon</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       PAGE: PROXY
+       ══════════════════════════════════════════════════════ -->
+  <section class="page" id="page-proxy" aria-label="Proxy">
+
+    <div class="section-header">
+      <span class="prompt">&gt;</span>
+      <h2>Proxy</h2>
+    </div>
+
+    <div class="proxy-terminal" role="region" aria-label="Proxy terminal">
+
+      <div class="term-prompt">root@byte:~$ cat /etc/proxy/info.txt</div>
+      <div class="term-output">
+        <span class="term-highlight">ByteUGS Proxy</span> — powered by
+        <span class="term-highlight">Ultraviolet</span> (v2.x)<br />
+        <br />
+        Ultraviolet is a highly advanced web proxy service that uses<br />
+        service workers to rewrite and forward web traffic entirely<br />
+        client-side, bypassing network filters.<br />
+        <br />
+        <span class="term-warn">// Status: Under construction. Deployment coming soon.</span>
+      </div>
+
+      <div class="term-prompt">root@byte:~$ ./proxy --start</div>
+      <div class="term-output">
+        <span class="term-warn">ERR:</span> Proxy backend not yet deployed.<br />
+        Planned stack:<br />
+        &nbsp;&nbsp;• Ultraviolet (service-worker proxy)<br />
+        &nbsp;&nbsp;• Bare-server-node (server-side bare transport)<br />
+        &nbsp;&nbsp;• Wisp (WebSocket-to-TCP tunneling)<br />
+        &nbsp;&nbsp;• Deployed via Node.js / Deno on edge hosting
+      </div>
+
+      <form id="proxy-form" autocomplete="off" aria-label="Proxy URL input (coming soon)">
+        <div class="term-prompt">root@byte:~$ proxy --url</div>
+        <div class="proxy-input-row">
+          <input
+            type="url"
+            id="proxy-url"
+            class="proxy-url-input"
+            placeholder="https://example.com"
+            aria-label="URL to proxy"
+          />
+          <button type="submit" class="btn btn-primary">Connect</button>
+        </div>
+      </form>
+
+      <div class="proxy-status-banner" id="proxy-coming-soon" style="display:none;" role="alert">
+        <strong>&gt; Not yet available.</strong><br />
+        The proxy backend is still being deployed. When live, paste any URL above
+        to browse it through Ultraviolet without filters or restrictions.
+      </div>
+
+    </div>
+
+    <div style="margin-top:32px; max-width:700px; margin-left:auto; margin-right:auto;">
+      <div class="section-header">
+        <span class="prompt">&gt;</span>
+        <h2>Technical Roadmap</h2>
+      </div>
+
+      <div class="placeholder-grid" style="grid-template-columns:1fr;">
+        <div class="placeholder-card">
+          <div class="placeholder-name">① Deploy Bare Server</div>
+          <div class="placeholder-desc">
+            Set up bare-server-node on a Node.js host to handle HTTP/HTTPS tunneling
+            requests from the Ultraviolet service worker.
+          </div>
+          <span class="placeholder-badge">Planned</span>
+        </div>
+        <div class="placeholder-card">
+          <div class="placeholder-name">② Integrate Ultraviolet Service Worker</div>
+          <div class="placeholder-desc">
+            Register the UV service worker so all proxied traffic is rewritten
+            client-side — no requests leave the browser directly.
+          </div>
+          <span class="placeholder-badge">Planned</span>
+        </div>
+        <div class="placeholder-card">
+          <div class="placeholder-name">③ Add Wisp WebSocket Transport</div>
+          <div class="placeholder-desc">
+            Use Wisp for WebSocket-to-TCP tunneling, enabling WebSocket-based apps
+            and games to work through the proxy.
+          </div>
+          <span class="placeholder-badge">Planned</span>
+        </div>
+        <div class="placeholder-card">
+          <div class="placeholder-name">④ Build Proxy UI</div>
+          <div class="placeholder-desc">
+            Integrate the Ultraviolet frontend into ByteUGS with the terminal theme,
+            bookmarks, and history support.
+          </div>
+          <span class="placeholder-badge">Planned</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <span>ByteUGS</span> &mdash; root@byte:~$ █ &mdash; for educational purposes only
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
