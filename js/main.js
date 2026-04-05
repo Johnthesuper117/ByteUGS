@@ -238,30 +238,7 @@ function openGame(game) {
 
   // Build CDN URL
   const encodedFolder = encodeURIComponent(game.folder);
-  const gameUrl = `${CDN}${encodedFolder}/index.html`;
-  const baseUrl = new URL('./', gameUrl).href;
-
-  fetch(gameUrl, { cache: 'no-store' })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Failed to load game HTML: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then(html => {
-      if (loadId !== currentGameLoad) return;
-
-      const hasBaseTag = /<base\s/i.test(html);
-      const injectedHtml = hasBaseTag
-        ? html
-        : html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseUrl}">`);
-
-      frame.srcdoc = injectedHtml;
-    })
-    .catch(() => {
-      if (loadId !== currentGameLoad) return;
-      frame.src = gameUrl;
-    });
+  frame.src = `${CDN}${encodedFolder}/index.html`;
 }
 
 function closeModal() {
@@ -270,7 +247,6 @@ function closeModal() {
 
   overlay.classList.add('hidden');
   frame.src = 'about:blank';
-  frame.removeAttribute('srcdoc');
   currentGameLoad += 1;
   document.body.style.overflow = '';
   currentGame = null;
