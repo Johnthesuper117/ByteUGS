@@ -134,6 +134,7 @@ let currentPage    = 'home';
 let activeTag      = 'all';
 let searchQuery    = '';
 let currentGame    = null;
+let currentGameLoad = 0;
 
 /* ── DOM helpers ────────────────────────────────────────── */
 const $  = (sel, ctx = document) => ctx.querySelector(sel);
@@ -215,6 +216,7 @@ function buildGameGrid() {
 /* ── Open Game Modal ────────────────────────────────────── */
 function openGame(game) {
   currentGame = game;
+  const loadId = ++currentGameLoad;
 
   const overlay  = $('#game-modal');
   const title    = $('#modal-game-title');
@@ -223,20 +225,43 @@ function openGame(game) {
 
   overlay.classList.remove('hidden');
   title.textContent = `> ${game.name}`;
-  frame.src = 'about:blank';
   loading.style.display = 'flex';
   frame.style.opacity   = '0';
 
   document.body.style.overflow = 'hidden';
 
   frame.onload = () => {
+    if (loadId !== currentGameLoad) return;
     loading.style.display = 'none';
     frame.style.opacity   = '1';
   };
 
   // Build CDN URL
   const encodedFolder = encodeURIComponent(game.folder);
-  frame.src = `${CDN}${encodedFolder}/index.html`;
+  const gameUrl = `${CDN}${encodedFolder}/index.html`;
+  const baseUrl = new URL('./', gameUrl).href;
+
+  fetch(gameUrl, { cache: 'no-store' })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Failed to load game HTML: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(html => {
+      if (loadId !== currentGameLoad) return;
+
+      const hasBaseTag = /<base\s/i.test(html);
+      const injectedHtml = hasBaseTag
+        ? html
+        : html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseUrl}">`);
+
+      frame.srcdoc = injectedHtml;
+    })
+    .catch(() => {
+      if (loadId !== currentGameLoad) return;
+      frame.src = gameUrl;
+    });
 }
 
 function closeModal() {
@@ -245,6 +270,8 @@ function closeModal() {
 
   overlay.classList.add('hidden');
   frame.src = 'about:blank';
+  frame.removeAttribute('srcdoc');
+  currentGameLoad += 1;
   document.body.style.overflow = '';
   currentGame = null;
 }
